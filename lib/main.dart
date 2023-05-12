@@ -1,6 +1,5 @@
 import 'package:news_app/src/ui/pages.dart';
 
-
 void main() {
   runApp(
     MultiProvider(
