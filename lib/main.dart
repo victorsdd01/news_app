@@ -5,6 +5,7 @@ void main() {
     MultiProvider(
         providers: [
           ChangeNotifierProvider(create: (context) => GeneralSettingsProvider()),
+          ChangeNotifierProvider(create: (context) => NewsService()),
         ],
         child: const MyApp(),
       )
@@ -20,7 +21,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'News app',
-      theme: AppTheme.darkTheme,
+      theme: Provider.of<GeneralSettingsProvider>(context).themeMode,
       initialRoute: AppRoutes.initialRoute,
       routes: AppRoutes.routes,
     );

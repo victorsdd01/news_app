@@ -2,8 +2,8 @@
 
 import 'package:news_app/src/ui/pages.dart';
 
-class PageWidget extends StatelessWidget {
-  const PageWidget({
+class HeadlinesPage extends StatelessWidget {
+  const HeadlinesPage({
     super.key, 
     required this.child,
     this.color
@@ -15,7 +15,7 @@ class PageWidget extends StatelessWidget {
     return Container(
       width: double.maxFinite,
       height: double.maxFinite,
-      color: color ?? Colors.amber.shade200,
+      color: color,
       child: child,
     );
   }

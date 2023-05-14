@@ -5,6 +5,8 @@ class AppRoutes{
   static const String initialRoute = "home";
 
   static Map<String, Widget Function(BuildContext)> routes = <String, WidgetBuilder>{
-    'home':(context) => const HomePage(),
+    'home'    :(_) => const HomePage(),
+    'see_new' :(_) => const SeeNew(),
+    'test'    :(_) => const TestPage()
   };
 }
