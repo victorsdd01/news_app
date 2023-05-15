@@ -1,6 +1,7 @@
 
-
 import 'package:news_app/src/ui/pages.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
 
 class GeneralSettingsProvider extends ChangeNotifier{
 
@@ -10,6 +11,7 @@ class GeneralSettingsProvider extends ChangeNotifier{
   bool _isDarkMode = false;
   double _headLinesControllerOffset = 0.0;
   double _opacity = 0.0;
+  SharedPreferences sharedPreferences;
   final ScrollController _headlinesScrollController = ScrollController();
   final PageController _pageController = PageController(initialPage: 0);
 
@@ -42,6 +44,7 @@ class GeneralSettingsProvider extends ChangeNotifier{
   }
   set setDarkTheme(bool value) {
     _isDarkMode = value;
+    sharedPreferences.setBool("isDarkMode", value);
     notifyListeners();
   }
 
@@ -51,9 +54,23 @@ class GeneralSettingsProvider extends ChangeNotifier{
   }
 
 
-  GeneralSettingsProvider(){
+  GeneralSettingsProvider({required this.sharedPreferences}){
     listenHeadlinesController();
     listenPageController();
+  }
+
+  void loadDarkMode(){
+    final value = sharedPreferences.getBool("isDarkMode");
+    switch (value) {
+      case true:
+        setDarkTheme = value!;
+        break;
+      case false:
+        setDarkTheme = value!;
+      case null:
+        setDarkTheme = false;
+       break;
+    }
   }
 
   void listenHeadlinesController(){
