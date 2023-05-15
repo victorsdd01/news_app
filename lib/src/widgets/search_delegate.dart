@@ -35,7 +35,6 @@ class MySearchDelegate extends SearchDelegate<String>{
 
   @override
   Widget buildResults(BuildContext context) {
-    print("Build Result searching:$query");
     return const Text("buildResults");
   }
 

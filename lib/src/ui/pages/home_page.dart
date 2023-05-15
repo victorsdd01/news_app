@@ -65,7 +65,7 @@ class HomePage extends StatelessWidget {
             case 1:
             generaSettingsProvider.pageController.nextPage(duration: const Duration(milliseconds: 500), curve: Curves.easeIn);
               break;
-      }
+          }
         },
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
