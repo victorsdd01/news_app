@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     GeneralSettingsProvider generalSettingsProvider = Provider.of<GeneralSettingsProvider>(context);
-    generalSettingsProvider.loadDarkMode();
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) => generalSettingsProvider.loadDarkMode());
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'News app',

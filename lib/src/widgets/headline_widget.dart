@@ -48,7 +48,17 @@ class _HeadlineNewsState extends State<HeadlineNews> with AutomaticKeepAliveClie
                             color: headline.urlToImage == null ? Colors.grey.shade800 : null,
                             width: size.width,
                             height: size.height,
-                            child: headline.urlToImage != null ? Image.network(headline.urlToImage!, fit: BoxFit.cover,): null
+                            child:  FadeInImage(
+                              image: NetworkImage(headline.urlToImage!),
+                              placeholderFit: BoxFit.cover,
+                              placeholder: const NetworkImage('https://placehold.co/600x400/000000/FFFFFF/png'),
+                              placeholderErrorBuilder: (context, error, stackTrace) =>const CircularProgressIndicator.adaptive(),
+                              imageErrorBuilder: (context, error, stackTrace) {
+                                return Text("Error:$error");
+                              },
+                              fit: BoxFit.cover,
+
+                            ),
                           ),
                         ),
                         Positioned(

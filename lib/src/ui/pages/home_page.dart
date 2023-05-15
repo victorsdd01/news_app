@@ -11,6 +11,8 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
+        centerTitle: true,
+        title: const Text("Headlines", style: TextStyle(fontWeight: FontWeight.w600, fontSize: 25.0),), 
         leading: Switch(
           activeColor: Colors.blueGrey.shade500,
           inactiveThumbColor: Colors.amber.shade100,
@@ -24,7 +26,15 @@ class HomePage extends StatelessWidget {
           IconButton(
             splashRadius: 0.1,
             splashColor: Colors.transparent,
-            onPressed: () => generaSettingsProvider.setSearch = !generaSettingsProvider.search, 
+            onPressed: () {
+              generaSettingsProvider.setSearch = !generaSettingsProvider.search;
+              if (generaSettingsProvider.search) {
+                showSearch(
+                  context: context, 
+                  delegate: MySearchDelegate()
+                );
+              }
+            }, 
             icon: Icon(Icons.search, color: generaSettingsProvider.search ? Colors.amber : Colors.white)
           ),
         ],
