@@ -25,3 +25,6 @@ export 'package:news_app/src/services/services.dart';
 
 //Test-page
 export 'package:news_app/src/ui/test.dart';
+
+// helpers
+export 'package:news_app/src/helpers/helpers.dart';

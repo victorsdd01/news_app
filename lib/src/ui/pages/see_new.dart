@@ -58,8 +58,7 @@ class _Header extends SliverPersistentHeaderDelegate{
   @override
   Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
     final percent = shrinkOffset / _maxExtendsHeader;
-    // final currentImageSize =  _maxExtendsHeader * (1- percent);
-
+    // final currentImageSize =  _maxExtendsHeader * (1- percent)
     print(percent);
     return Hero(
       tag: headline.urlToImage ?? "no_image",
@@ -86,7 +85,7 @@ class _Header extends SliverPersistentHeaderDelegate{
             top: 30,
             left: 1,
             child: AnimatedOpacity(
-              duration: const Duration(milliseconds: 200),
+              duration: const Duration(seconds: 2),
               opacity: (percent >= 0.0 && percent < 0.3) ? 0.3 * percent : 1,
               curve: Curves.bounceOut,
               child: Material(
