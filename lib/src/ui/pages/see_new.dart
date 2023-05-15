@@ -58,8 +58,6 @@ class _Header extends SliverPersistentHeaderDelegate{
   @override
   Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
     final percent = shrinkOffset / _maxExtendsHeader;
-    // final currentImageSize =  _maxExtendsHeader * (1- percent)
-    print(percent);
     return Hero(
       tag: headline.urlToImage ?? "no_image",
       child: Stack(

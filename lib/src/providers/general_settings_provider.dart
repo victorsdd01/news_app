@@ -11,9 +11,11 @@ class GeneralSettingsProvider extends ChangeNotifier{
   bool _isDarkMode = false;
   double _headLinesControllerOffset = 0.0;
   double _opacity = 0.0;
+  String _selectedCategory = "";
   SharedPreferences sharedPreferences;
   final ScrollController _headlinesScrollController = ScrollController();
   final PageController _pageController = PageController(initialPage: 0);
+  final ScrollController _nestedController = ScrollController();
 
   // getters
   int get getCurrentPage => _currentPage;
@@ -22,10 +24,12 @@ class GeneralSettingsProvider extends ChangeNotifier{
   bool get darkTheme => _isDarkMode;
   double get headLinesControllerOffset => _headLinesControllerOffset;
   double get opacity => _opacity;
+  String get selectedCategory => _selectedCategory;
   
   ThemeData get themeMode => _isDarkMode ? AppTheme.darkTheme : AppTheme.lightTheme;
   ScrollController get headlineScrollController => _headlinesScrollController;
   PageController get pageController => _pageController;
+  ScrollController get nestedController => _nestedController;
 
   //setters
 
@@ -53,6 +57,11 @@ class GeneralSettingsProvider extends ChangeNotifier{
     notifyListeners();
   }
 
+  set setSelectedCategory(String value) {
+    _selectedCategory = value;
+    notifyListeners();
+  }
+
 
   GeneralSettingsProvider({required this.sharedPreferences}){
     listenHeadlinesController();
@@ -76,6 +85,14 @@ class GeneralSettingsProvider extends ChangeNotifier{
   void listenHeadlinesController(){
     _headlinesScrollController.addListener(() {
       _headLinesControllerOffset =  _headlinesScrollController.offset;
+      switch (headLinesControllerOffset) {
+        case > 0.0:
+          nestedController.animateTo(_nestedController.position.maxScrollExtent, duration: const Duration(milliseconds: 100), curve: Curves.easeInOut);
+          break;
+        case < 100.0:
+          nestedController.animateTo(_nestedController.position.minScrollExtent, duration: const Duration(milliseconds: 100), curve: Curves.easeIn);
+          break;
+      }
       notifyListeners();
     });
   }

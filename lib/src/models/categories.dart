@@ -13,7 +13,7 @@ class Categories {
 
   static List<Categories> categories = [
     Categories(icon: Icons.business, categoryName: 'business',),
-    Categories(icon: Icons.accessibility_new_sharp, categoryName: 'entertainment',),
+    Categories(icon: Icons.tv, categoryName: 'entertainment',),
     Categories(icon: Icons.align_horizontal_left, categoryName: 'general',),
     Categories(icon: Icons.health_and_safety, categoryName: 'health',),
     Categories(icon: Icons.science, categoryName: 'science',),
