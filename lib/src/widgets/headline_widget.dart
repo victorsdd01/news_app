@@ -40,6 +40,7 @@ class _HeadlineNewsState extends State<HeadlineNews> with AutomaticKeepAliveClie
                         return GestureDetector(
                           onTap: () async  {
                             widget.generalSettingsProvider.setSelectedCategory = category.categoryName;
+                            await widget.newsService.filterByCategory(category.categoryName);
                           },
                           child: Container(
                             width: 100,

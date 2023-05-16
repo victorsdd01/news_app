@@ -108,6 +108,7 @@ class GeneralSettingsProvider extends ChangeNotifier{
   void close(){
     _headlinesScrollController.dispose();
     _pageController.dispose();
+    _nestedController.dispose();
   }
 
 }
