@@ -13,6 +13,7 @@ class GeneralSettingsProvider extends ChangeNotifier{
   double _opacity = 0.0;
   String _selectedCategory = "";
   SharedPreferences sharedPreferences;
+  bool preferencesDarkMode;
   final ScrollController _headlinesScrollController = ScrollController();
   final PageController _pageController = PageController(initialPage: 0);
   final ScrollController _nestedController = ScrollController();
@@ -63,7 +64,8 @@ class GeneralSettingsProvider extends ChangeNotifier{
   }
 
 
-  GeneralSettingsProvider({required this.sharedPreferences}){
+  GeneralSettingsProvider({required this.sharedPreferences, required this.preferencesDarkMode}){
+    setDarkTheme = preferencesDarkMode;
     listenHeadlinesController();
     listenPageController();
   }

@@ -1,5 +1,6 @@
 
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:news_app/src/ui/pages.dart';
 
 enum BasePaths{
@@ -38,7 +39,9 @@ class NewsService extends ChangeNotifier{
       return headlines;
     } on DioError catch(e){
       final ErrorResponse error = ErrorResponse.fromMap(e.response!.data);
-      print(error.message);
+      if (kDebugMode) {
+        print("‼️${error.message}");
+      }
       return [];
     }
   }
@@ -59,7 +62,9 @@ class NewsService extends ChangeNotifier{
       return headlines;
     } on DioError catch (e) {
       final ErrorResponse error = ErrorResponse.fromMap(e.response!.data);
-      print(error.message);
+      if (kDebugMode) {
+        print("‼️${error.message}");
+      }
       return [];
     }
   }

@@ -5,11 +5,10 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SharedPreferences sharedPreferences =  await SharedPreferences.getInstance();
   final darkMode = sharedPreferences.getBool("isDarkMode");
-  print("isDarkModePreferences:$darkMode");
   runApp(
     MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => GeneralSettingsProvider(sharedPreferences: sharedPreferences)),
+        ChangeNotifierProvider(create: (_) => GeneralSettingsProvider(sharedPreferences: sharedPreferences, preferencesDarkMode: darkMode!)),
         ChangeNotifierProvider(create: (_) => NewsService()),
       ],
       child: const MyApp(),
@@ -23,11 +22,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // GeneralSettingsProvider generalSettingsProvider = Provider.of<GeneralSettingsProvider>(context);
-    // WidgetsBinding.instance.addPostFrameCallback((_) {
-    //   print("loadingDArkMode");
-    //   generalSettingsProvider.loadDarkMode();
-    // });
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'News app',
