@@ -74,12 +74,30 @@ class Source{
      this.name
   });
   factory Source.fromMap(Map<String,dynamic> json) => Source(
-    id: json['id'],
-    name: json['name'],
+    id: json['id'] ?? 'no-id',
+    name: json['name']??'no-name',
   );
 
   Map<String,dynamic> toMap() => {
     "id" : id,
     "name": name,
   };
+}
+
+class ErrorResponse{
+  String status;
+  String code;
+  String message;
+
+  ErrorResponse({
+    required this.status,
+    required this.code,
+    required this.message
+  });
+
+  factory ErrorResponse.fromMap(Map<String,dynamic> json) => ErrorResponse(
+    status: json['status'],
+    code: json['code'],
+    message: json['message'],
+  );
 }

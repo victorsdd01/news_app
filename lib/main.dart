@@ -4,6 +4,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SharedPreferences sharedPreferences =  await SharedPreferences.getInstance();
+  final darkMode = sharedPreferences.getBool("isDarkMode");
+  print("isDarkModePreferences:$darkMode");
   runApp(
     MultiProvider(
       providers: [
@@ -21,8 +23,11 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    GeneralSettingsProvider generalSettingsProvider = Provider.of<GeneralSettingsProvider>(context);
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) => generalSettingsProvider.loadDarkMode());
+    // GeneralSettingsProvider generalSettingsProvider = Provider.of<GeneralSettingsProvider>(context);
+    // WidgetsBinding.instance.addPostFrameCallback((_) {
+    //   print("loadingDArkMode");
+    //   generalSettingsProvider.loadDarkMode();
+    // });
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'News app',
