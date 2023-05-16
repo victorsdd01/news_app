@@ -7,6 +7,7 @@ class MySearchDelegate extends SearchDelegate<String>{
 
   @override
   List<Widget>? buildActions(BuildContext context) {
+
     return [
        IconButton(
         visualDensity: VisualDensity.adaptivePlatformDensity,
@@ -15,7 +16,17 @@ class MySearchDelegate extends SearchDelegate<String>{
         splashRadius: 1,
         onPressed: () => query = "",
         icon: const Icon(Icons.close)
-       )
+       ),
+       IconButton(
+        visualDensity: VisualDensity.adaptivePlatformDensity,
+        disabledColor: Colors.grey.shade700,
+        splashColor: Colors.transparent,
+        splashRadius: 1,
+        onPressed: () {
+
+        },
+        icon: const Icon(Icons.filter_list)
+       ),
     ];
   }
 
@@ -35,18 +46,40 @@ class MySearchDelegate extends SearchDelegate<String>{
 
   @override
   Widget buildResults(BuildContext context) {
-    return const Text("buildResults");
+    final NewsService newsService = Provider.of<NewsService>(context);
+    return ListView.separated(
+      itemCount: newsService.headlinesFilteredByQuery.length,
+      separatorBuilder: (_, __) => const Divider(),
+      itemBuilder: (_, index) {
+        final Articles headline = newsService.headlinesFilteredByQuery[index];
+        return ListTile(
+          title: Text(headline.title!),
+        );
+      },
+    );
   }
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    // debouncer.run((){
-    //   print("searching:$query");
-    // });
-    return SizedBox(
-      width: double.infinity,
-      height: double.infinity,
-      child: Text("BuildSuggestion:$query"),
-    );
+    final NewsService newsService = Provider.of<NewsService>(context);
+    debouncer.run(() async {
+       print("query:$query");
+       final list = newsService.filterByQuery(query);
+       print(list);
+    });
+    return !newsService.isLoading
+    ? ListView.separated(
+        itemCount: newsService.headlinesFilteredByQuery.length,
+        separatorBuilder: (_, __) => const Divider(),
+        itemBuilder: (_, index) {
+          final Articles headline = newsService.headlinesFilteredByQuery[index];
+          return ListTile(
+            title: Text(headline.title!),
+          );
+        },
+      )
+    : const Center(
+        child: CircularProgressIndicator.adaptive(),
+      );
   }
 }

@@ -19,6 +19,7 @@ class NewsService extends ChangeNotifier{
   final baseUrl = "https://newsapi.org/v2/";
   bool _isLoading = false;
   List<Articles> headlines = [];
+  List<Articles> headlinesFilteredByQuery = [];
   bool get isLoading => _isLoading;
 
   NewsService(){
@@ -50,13 +51,35 @@ class NewsService extends ChangeNotifier{
     try {
       headlines = [];
       _isLoading = true;
-      final response = await dio.get("$baseUrl${BasePaths.headlines.path}",queryParameters:{
+      final response = await dio.get("$baseUrl${BasePaths.headlines.path}", queryParameters:{
         "country": 'us',
         "apiKey": _apiKey,
         "category": category,
       });
       final News news = News.fromMap(response.data);
       headlines.addAll(news.articles);
+      _isLoading = false;
+      notifyListeners();
+      return headlines;
+    } on DioError catch (e) {
+      final ErrorResponse error = ErrorResponse.fromMap(e.response!.data);
+      if (kDebugMode) {
+        print("‼️${error.message}");
+      }
+      return [];
+    }
+  }
+
+  Future<List<Articles>> filterByQuery(String query) async {
+    try {
+      _isLoading = true;
+      final response =  await dio.get("$baseUrl${BasePaths.headlines.path}", queryParameters: {
+        "country": "us",
+        "apiKey": _apiKey,
+        "q": query,
+      });
+      final News news = News.fromMap(response.data);
+      headlinesFilteredByQuery.addAll(news.articles);
       _isLoading = false;
       notifyListeners();
       return headlines;
