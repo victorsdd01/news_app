@@ -5,7 +5,7 @@ enum Titles {
 
   headlines("Headlines"),
   everything("Everything"),
-  settings("Settings");
+  countries("Countries");
 
   final String title;
   const Titles(this.title);
@@ -25,7 +25,7 @@ class HomePage extends StatelessWidget {
         title: Text(
             generaSettingsProvider.getCurrentPage == 0 ? Titles.headlines.title
           : generaSettingsProvider.getCurrentPage == 1 ? Titles.everything.title
-          : generaSettingsProvider.getCurrentPage == 2 ? Titles.settings.title
+          : generaSettingsProvider.getCurrentPage == 2 ? Titles.countries.title
           : "", 
           style: const TextStyle(
             fontWeight: FontWeight.w600, fontSize: 25.0
@@ -41,7 +41,8 @@ class HomePage extends StatelessWidget {
           onChanged: (value) => generaSettingsProvider.setDarkTheme = value,
         ),
         actions:  <Widget>[
-          IconButton(
+          generaSettingsProvider.getCurrentPage == 0 
+          ? IconButton(
             splashRadius: 0.1,
             splashColor: Colors.transparent,
             onPressed: () {
@@ -54,7 +55,8 @@ class HomePage extends StatelessWidget {
               }
             }, 
             icon: Icon(Icons.search, color: generaSettingsProvider.search ? Colors.amber : Colors.white)
-          ),
+          ) 
+          : const SizedBox(),
         ],
       ),
       body: PageView(
@@ -68,7 +70,7 @@ class HomePage extends StatelessWidget {
             )
           ),
           const EverythingPage(),
-          const SettingsPage(),
+          const CountriesPage(),
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
@@ -89,18 +91,18 @@ class HomePage extends StatelessWidget {
               break;
           }
         },
-        items: const <BottomNavigationBarItem>[
+        items:  <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(Icons.person_4_outlined),
-            label: "Headlines",
+            icon: const Icon(Icons.person_4_outlined),
+            label: Titles.headlines.title,
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.multiline_chart),
-            label: "Everything"
+            icon: const Icon(Icons.multiline_chart),
+            label: Titles.everything.title
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.settings),
-            label: "Settings"
+            icon: const Icon(Icons.flag),
+            label: Titles.countries.title
           ),
         ]
       ),

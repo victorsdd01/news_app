@@ -14,9 +14,12 @@ class GeneralSettingsProvider extends ChangeNotifier{
   String _selectedCategory = "";
   SharedPreferences sharedPreferences;
   bool preferencesDarkMode;
+  double currentposition; //currentPosition
+  double _currentCountryScrollPosition = 0.0; //currentScrollPosition from seleceted country
   final ScrollController _headlinesScrollController = ScrollController();
   final PageController _pageController = PageController(initialPage: 0);
   final ScrollController _nestedController = ScrollController();
+  late final ScrollController _countryController = ScrollController(initialScrollOffset: currentCountryScrollPosition );
 
   // getters
   int get getCurrentPage => _currentPage;
@@ -26,11 +29,13 @@ class GeneralSettingsProvider extends ChangeNotifier{
   double get headLinesControllerOffset => _headLinesControllerOffset;
   double get opacity => _opacity;
   String get selectedCategory => _selectedCategory;
+  double get currentCountryScrollPosition => _currentCountryScrollPosition;
   
   ThemeData get themeMode => _isDarkMode ? AppTheme.darkTheme : AppTheme.lightTheme;
   ScrollController get headlineScrollController => _headlinesScrollController;
   PageController get pageController => _pageController;
   ScrollController get nestedController => _nestedController;
+  ScrollController get countryController => _countryController;
 
   //setters
 
@@ -63,11 +68,25 @@ class GeneralSettingsProvider extends ChangeNotifier{
     notifyListeners();
   }
 
+  set setCurrentCountryScrollPosition(double value){
+    _currentCountryScrollPosition = value;
+    sharedPreferences.setDouble("currentCountryScrollPosition", value);
+    notifyListeners();
+  }
 
-  GeneralSettingsProvider({required this.sharedPreferences, required this.preferencesDarkMode}){
+
+  GeneralSettingsProvider({
+    required this.sharedPreferences, 
+    required this.preferencesDarkMode,
+    required this.currentposition,
+  }){
+
+    print("currentPosition:$currentposition");
     setDarkTheme = preferencesDarkMode;
+    setCurrentCountryScrollPosition = currentposition;
     listenHeadlinesController();
     listenPageController();
+    // listeCountryController();
   }
 
   void loadDarkMode(){
@@ -107,10 +126,15 @@ class GeneralSettingsProvider extends ChangeNotifier{
     });
   }
 
+  void listeCountryController() {
+      _countryController.addListener(() {});
+  }
+
   void close(){
     _headlinesScrollController.dispose();
     _pageController.dispose();
     _nestedController.dispose();
+    _countryController.dispose();
   }
 
 }

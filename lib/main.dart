@@ -5,13 +5,23 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SharedPreferences sharedPreferences =  await SharedPreferences.getInstance();
   Country.getCountryList();
-  final bool? darkMode = sharedPreferences.getBool("isDarkMode");
-  
+  final bool? darkMode = sharedPreferences.getBool("isDarkMode");  
+  final String? selectedCountry = sharedPreferences.getString("selectedCountry");
+  final double? currentCountryScrollPosition = sharedPreferences.getDouble("currentCountryScrollPosition");
   runApp(
     MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => GeneralSettingsProvider(sharedPreferences: sharedPreferences, preferencesDarkMode: darkMode ?? false)),
-        ChangeNotifierProvider(create: (_) => NewsService()),
+        ChangeNotifierProvider(create: (_) => GeneralSettingsProvider(
+            sharedPreferences: sharedPreferences, 
+            preferencesDarkMode: darkMode ?? false,
+            currentposition: currentCountryScrollPosition ?? 0.0,
+          )
+        ),
+        ChangeNotifierProvider(create: (_) => NewsService(
+            sharedPreferences: sharedPreferences,
+            country: selectedCountry ?? "us"
+          )
+        ),
       ],
       child: const MyApp(),
     )

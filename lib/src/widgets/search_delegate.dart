@@ -64,7 +64,7 @@ class MySearchDelegate extends SearchDelegate<String>{
     final NewsService newsService = Provider.of<NewsService>(context);
     debouncer.run(() async {
        print("query:$query");
-       final list = newsService.filterByQuery(query);
+       final list = newsService.filterByQuery(query, null);
        print(list);
     });
     return !newsService.isLoading
