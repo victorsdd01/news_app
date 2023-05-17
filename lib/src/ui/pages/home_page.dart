@@ -1,5 +1,15 @@
 import 'package:news_app/src/ui/pages.dart';
 
+
+enum Titles {
+
+  headlines("Headlines"),
+  everything("Everything"),
+  countries("Countries");
+
+  final String title;
+  const Titles(this.title);
+}
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
@@ -12,7 +22,15 @@ class HomePage extends StatelessWidget {
       appBar: AppBar(
         elevation: 0,
         centerTitle: true,
-        title: const Text("Headlines", style: TextStyle(fontWeight: FontWeight.w600, fontSize: 25.0),), 
+        title: Text(
+            generaSettingsProvider.getCurrentPage == 0 ? Titles.headlines.title
+          : generaSettingsProvider.getCurrentPage == 1 ? Titles.everything.title
+          : generaSettingsProvider.getCurrentPage == 2 ? Titles.countries.title
+          : "", 
+          style: const TextStyle(
+            fontWeight: FontWeight.w600, fontSize: 25.0
+          ),
+        ), 
         leading: Switch(
           activeColor: Colors.blueGrey.shade500,
           inactiveThumbColor: Colors.amber.shade100,
@@ -23,7 +41,8 @@ class HomePage extends StatelessWidget {
           onChanged: (value) => generaSettingsProvider.setDarkTheme = value,
         ),
         actions:  <Widget>[
-          IconButton(
+          generaSettingsProvider.getCurrentPage == 0 
+          ? IconButton(
             splashRadius: 0.1,
             splashColor: Colors.transparent,
             onPressed: () {
@@ -36,7 +55,8 @@ class HomePage extends StatelessWidget {
               }
             }, 
             icon: Icon(Icons.search, color: generaSettingsProvider.search ? Colors.amber : Colors.white)
-          ),
+          ) 
+          : const SizedBox(),
         ],
       ),
       body: PageView(
@@ -49,7 +69,8 @@ class HomePage extends StatelessWidget {
               generalSettingsProvider: generaSettingsProvider,
             )
           ),
-          const EverythingPage()
+          const EverythingPage(),
+          const CountriesPage(),
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
@@ -60,21 +81,28 @@ class HomePage extends StatelessWidget {
           generaSettingsProvider.setCurrentPage = value;
           switch (generaSettingsProvider.getCurrentPage) {
             case 0:
-              generaSettingsProvider.pageController.previousPage(duration: const Duration(milliseconds: 500), curve: Curves.easeInBack);
+              generaSettingsProvider.pageController.animateToPage(value, duration: const Duration(milliseconds: 500), curve: Curves.easeInToLinear);
               break;
             case 1:
-            generaSettingsProvider.pageController.nextPage(duration: const Duration(milliseconds: 500), curve: Curves.easeIn);
+              generaSettingsProvider.pageController.animateToPage(value, duration: const Duration(milliseconds: 500), curve: Curves.easeIn);
+              break;
+            case 2:
+              generaSettingsProvider.pageController.animateToPage(value, duration: const Duration(milliseconds: 500), curve: Curves.easeInBack);
               break;
           }
         },
-        items: const <BottomNavigationBarItem>[
+        items:  <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(Icons.person_4_outlined),
-            label: "Para ti",
+            icon: const Icon(Icons.person_4_outlined),
+            label: Titles.headlines.title,
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.multiline_chart),
-            label: "android"
+            icon: const Icon(Icons.multiline_chart),
+            label: Titles.everything.title
+          ),
+          BottomNavigationBarItem(
+            icon: const Icon(Icons.flag),
+            label: Titles.countries.title
           ),
         ]
       ),

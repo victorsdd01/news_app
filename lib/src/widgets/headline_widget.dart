@@ -15,11 +15,11 @@ class HeadlineNews extends StatefulWidget {
   State<HeadlineNews> createState() => _HeadlineNewsState();
 }
 
-class _HeadlineNewsState extends State<HeadlineNews> with AutomaticKeepAliveClientMixin {
+class _HeadlineNewsState extends State<HeadlineNews> {
   final double _expandedHeight = 50.0;
   @override
   Widget build(BuildContext context) {
-    super.build(context);
+    // super.build(context);
     final size = MediaQuery.of(context).size;
     return NestedScrollView(
       controller: Provider.of<GeneralSettingsProvider>(context).nestedController,
@@ -143,6 +143,6 @@ class _HeadlineNewsState extends State<HeadlineNews> with AutomaticKeepAliveClie
     );
   }
   
-  @override
-  bool get wantKeepAlive => true;
+  // @override
+  // bool get wantKeepAlive => true;
 }

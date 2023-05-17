@@ -11,12 +11,7 @@ class TestPage extends StatelessWidget {
       body: AnimatedList(
         initialItemCount: 10,
         itemBuilder: (context, index, animation) {
-          return ListTile(
-            onFocusChange: (value) => print("value:$value"),
-            onTap: () => print("clicked"),
-            selectedTileColor: Colors.amber,
-            title: Text("$index"),
-          );
+          return const Center(child: Text("hello from test page"),);
         },
       ),
     );

@@ -19,7 +19,6 @@ class News{
     "totalResults":totalResults,
     "articles":List<dynamic>.from(articles.map((x) => x.toMap())),
   };
-
 }
 
 class Articles{
