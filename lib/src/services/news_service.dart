@@ -41,7 +41,6 @@ class NewsService extends ChangeNotifier{
   Future<List<Articles>> getHeadlinesNews() async {
     try {
       _isLoading = true;
-      print("here");
       final response = await dio.get("${BasePaths.baseUrl.path}${BasePaths.headlines.path}",
         queryParameters:{
             "country": selectedCountry,

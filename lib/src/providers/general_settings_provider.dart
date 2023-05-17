@@ -80,8 +80,7 @@ class GeneralSettingsProvider extends ChangeNotifier{
     required this.preferencesDarkMode,
     required this.currentposition,
   }){
-
-    print("currentPosition:$currentposition");
+    
     setDarkTheme = preferencesDarkMode;
     setCurrentCountryScrollPosition = currentposition;
     listenHeadlinesController();
