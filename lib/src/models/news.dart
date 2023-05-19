@@ -100,3 +100,47 @@ class ErrorResponse{
     message: json['message'],
   );
 }
+
+class EverythingNews {
+
+  List<Sources> sources;
+
+  EverythingNews({required this.sources});
+
+  factory EverythingNews.fromMap(Map<String,dynamic>json) => EverythingNews(
+    sources: List<Sources>.from(json['sources'].map((x)=> Sources.fromMap(x)))
+  );
+
+}
+
+class Sources{
+
+  String id;
+  String name;
+  String description;
+  String url;
+  String category;
+  String language;
+  String country;
+
+  Sources({
+    required this.id,
+    required this.name,
+    required this.description,
+    required this.url,
+    required this.category,
+    required this.language,
+    required this.country,
+  });
+
+  factory Sources.fromMap(Map<String,dynamic> json) => Sources(
+    id: json['id'], 
+    name:  json['name'], 
+    description: json['description'], 
+    url:  json['url'], 
+    category:  json['category'], 
+    language:  json['language'], 
+    country:  json['country']
+  );
+
+}

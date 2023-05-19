@@ -360,5 +360,11 @@ class Country{
     return countries;
   }
 
-  List<Country> get countryList => getCountryList();
+  static List<Country> get countryList => getCountryList();
+
+  static String getFlagPath(String country){
+    final index = countries.indexWhere((element) => element.countryPrefix.toLowerCase() == country);
+    final String flagPath = index != -1 ? countries[index].countryImage : "no-flag";
+    return flagPath;
+  }
 } 

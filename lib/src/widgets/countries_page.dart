@@ -1,6 +1,3 @@
-
-
-import 'package:news_app/src/models/countries.dart';
 import 'package:news_app/src/ui/pages.dart';
 
 class CountriesPage extends StatelessWidget {

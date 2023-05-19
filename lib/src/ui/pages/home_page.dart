@@ -69,7 +69,9 @@ class HomePage extends StatelessWidget {
               generalSettingsProvider: generaSettingsProvider,
             )
           ),
-          const EverythingPage(),
+          EverythingPage(
+            everythingNews: newServices.everythingNewsList,
+          ),
           const CountriesPage(),
         ],
       ),

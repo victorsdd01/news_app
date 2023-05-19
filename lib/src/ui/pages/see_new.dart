@@ -6,38 +6,39 @@ class SeeNew extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final Articles headlineData = ModalRoute.of(context)!.settings.arguments as Articles;
+    final Articles articles =  ModalRoute.of(context)!.settings.arguments as Articles;
 
     return  Scaffold(
       body: CustomScrollView(
         slivers: <Widget>[
           SliverPersistentHeader(
-            delegate: _Header(headline: headlineData),
+            delegate: _Header(articles: articles,),
             pinned: true,
             floating: true,
           ),
           SliverToBoxAdapter(
             child: Container(
               padding: const EdgeInsets.all(20.0),
-              child: Text('''${headlineData.content!}Duis commodo in pariatur nostrud commodo sunt do irure aliquip occaecat laborum pariatur sint. Ad eiusmod eu aliqua velit amet ea do velit nostrud. Elit amet velit ex dolor Lorem. Et ad eu dolor labore officia consequat amet laboris non cupidatat voluptate duis consequat. Excepteur consequat eu ut laboris voluptate. Dolore proident deserunt aliqua minim mollit amet cupidatat est minim non. Fugiat veniam reprehenderit eiusmod aliqua minim excepteur nostrud.
+              child: Text(articles.content ?? '''Proident sint laboris cillum quis magna sit nostrud dolore non velit aliquip voluptate ad proident. Cupidatat id incididunt pariatur sunt sit consequat deserunt Lorem exercitation. Qui irure ullamco aliquip ea ex deserunt ex cupidatat et velit. Veniam sunt duis occaecat dolor ea reprehenderit cupidatat amet. Laboris duis tempor exercitation enim nulla commodo proident proident culpa eiusmod cillum ea anim. Minim duis Lorem mollit enim reprehenderit consequat dolor tempor aute laborum ut ipsum Lorem minim.
 
-Mollit consectetur sint ea laborum. Excepteur voluptate reprehenderit nulla veniam cillum deserunt fugiat veniam exercitation sit. Consectetur cillum laborum tempor veniam. Ex velit sint enim incididunt. Ad in esse id ut dolor cupidatat ex voluptate commodo laboris dolor sit. Commodo sit ut fugiat eiusmod nostrud amet duis do mollit laboris eiusmod laborum.
+                Cupidatat mollit cillum Lorem labore consequat. Ullamco reprehenderit anim fugiat in sunt. Eu elit et nostrud incididunt id nulla exercitation laboris. Occaecat quis incididunt ut exercitation non ullamco minim irure adipisicing pariatur excepteur.
 
-Magna incididunt dolor eiusmod cillum non dolore nisi minim quis culpa ullamco excepteur sunt. Lorem anim culpa voluptate in anim occaecat mollit id in cupidatat magna reprehenderit sit. Ipsum mollit sint duis amet pariatur dolore consequat nisi elit ea.
+                Deserunt nostrud incididunt est occaecat esse. Adipisicing ad nisi ex labore amet. Nostrud ea incididunt consectetur nostrud. Elit magna ullamco irure elit quis incididunt incididunt. Do proident reprehenderit officia cillum magna consectetur velit amet enim enim culpa exercitation ea. Minim proident laboris do proident pariatur eu tempor ullamco in culpa aliquip et irure dolor.
 
-Magna eu fugiat reprehenderit cillum adipisicing irure incididunt fugiat non. Incididunt adipisicing aliquip voluptate in anim ea consectetur occaecat pariatur do ea incididunt non eiusmod. Nulla ex sit ea occaecat sint mollit nostrud magna. Veniam adipisicing ea labore minim sint quis minim occaecat velit. Culpa et ipsum sunt ad dolore enim ut commodo laboris dolor incididunt aute. Aute adipisicing deserunt consectetur ullamco.
+                Est ad esse Lorem cillum irure elit exercitation mollit esse occaecat. Eu commodo qui nostrud ut reprehenderit nulla minim ad ex exercitation elit Lorem culpa ex. Quis est dolore magna incididunt excepteur id ea labore fugiat eu laborum tempor mollit. Qui consequat officia aliqua irure elit incididunt amet dolore non quis mollit do.
 
-Fugiat sint magna in commodo laborum proident sint eu ullamco laborum aute reprehenderit minim qui. Minim officia id veniam consequat ut duis duis proident est cillum sunt occaecat mollit. Duis enim dolore irure do voluptate non magna deserunt enim nostrud voluptate laborum in officia. Exercitation commodo fugiat cillum sunt aute sit consequat. Consequat sint occaecat proident qui consectetur occaecat. Do exercitation sit veniam ut nisi occaecat qui. Sunt eiusmod sint labore aliquip dolor.
+                Adipisicing voluptate do dolore quis officia esse minim proident enim proident culpa dolor duis minim. Adipisicing cillum labore pariatur ea nisi excepteur fugiat fugiat nisi mollit adipisicing reprehenderit consequat. Veniam reprehenderit minim nisi ut reprehenderit quis anim dolor eu commodo laboris eu. Qui in ut consequat et enim anim laboris qui deserunt do veniam.
 
-Ut excepteur magna excepteur occaecat ipsum reprehenderit dolor et pariatur labore non officia sint nisi. Et consectetur tempor exercitation aliquip consequat ea cillum. Reprehenderit officia ad ad proident non est sint adipisicing aute. Qui exercitation duis non fugiat exercitation officia exercitation laboris elit. Ipsum non ut reprehenderit consectetur duis. Eiusmod pariatur veniam aute fugiat tempor Lorem et esse quis id.
+                Culpa magna Lorem amet ipsum aliquip veniam sint minim est aliqua ea nisi. Enim sint do cupidatat deserunt adipisicing duis elit culpa pariatur ut. Sint voluptate ullamco fugiat aute. Aute aute amet id proident reprehenderit irure pariatur reprehenderit. Amet eu culpa Lorem veniam reprehenderit ea. Adipisicing in exercitation cillum veniam voluptate eiusmod aute consectetur do cillum occaecat laborum. Sit ea sint id exercitation.
 
-Quis anim ut tempor consectetur sunt amet sunt. Qui ullamco eu in ex aliquip do excepteur do. Occaecat magna laborum sit id occaecat excepteur enim non in ut nostrud. Nisi ex do in fugiat exercitation laboris aliquip officia.
+                Mollit eu excepteur ipsum ipsum est sit ad. Ullamco in et in irure ad do id id magna fugiat esse et Lorem. Anim nisi duis velit minim eiusmod exercitation. Consequat ea minim cupidatat eiusmod dolore reprehenderit ea esse non adipisicing. Culpa commodo culpa aliquip nisi aute in. Deserunt ea laborum irure Lorem pariatur aliquip laborum anim anim culpa. Velit sunt minim mollit aliqua magna incididunt ad occaecat cillum nisi pariatur ut.
 
-Ad non qui duis reprehenderit sint et magna consequat est tempor anim. Nisi labore ad nisi do. Est ea ea aliquip ut amet. Ullamco fugiat anim duis ut.
+                Aliqua cupidatat adipisicing exercitation non tempor non laboris quis cillum. Exercitation aliqua exercitation Lorem est incididunt. Culpa sunt consequat ipsum in fugiat in consequat magna Lorem nulla deserunt id. Reprehenderit ex magna velit non esse officia anim. Minim mollit reprehenderit id amet velit consectetur ex. Aliquip eu proident mollit aute proident cillum culpa reprehenderit cupidatat non irure reprehenderit consectetur fugiat.
 
-Mollit excepteur culpa culpa dolore amet laboris ea et. Eiusmod adipisicing consequat ipsum ipsum incididunt sint. Veniam excepteur laborum cillum culpa quis ipsum minim amet magna velit. Labore nostrud ut ullamco ea elit elit quis incididunt ipsum nulla.
+                Reprehenderit eu eu magna reprehenderit est quis nisi laborum sunt cupidatat occaecat do. Ea sit minim minim ullamco quis. Nisi sit exercitation dolore tempor commodo proident officia reprehenderit. Dolor tempor ipsum mollit occaecat nulla sunt magna aliqua excepteur consequat irure.
 
-Sint ullamco incididunt ex ut cupidatat consectetur. Amet est velit qui tempor laboris proident quis cillum eu dolore. Veniam et cillum in incididunt nulla. Do commodo qui nostrud fugiat incididunt quis veniam eu proident. Et aliqua proident labore reprehenderit sint. Laboris laboris deserunt aliquip occaecat aute esse aute reprehenderit enim est culpa do. Ad excepteur tempor tempor ut velit ipsum consequat dolore duis dolore velit.'''),
+                Est aliqua consectetur commodo exercitation sint sunt irure non Lorem velit nulla esse velit non. Nostrud reprehenderit esse aliquip ad cillum consectetur reprehenderit ut excepteur ea reprehenderit. Culpa est qui dolore velit nulla do dolor amet anim laborum. In consectetur consequat commodo do ex eiusmod enim in tempor consequat nostrud tempor. Sit labore est non proident minim dolor commodo dolor nisi velit nostrud. Voluptate duis aliquip nisi commodo velit aute id quis. Nostrud aliquip labore ad cupidatat tempor et duis amet nostrud consectetur magna sint tempor.  
+              '''),
             ),
           ),
         ],
@@ -51,15 +52,18 @@ const _minExtendsHeader =  80.0;
 
 class _Header extends SliverPersistentHeaderDelegate{
   const _Header({
-    required this.headline
+    required this.articles,
+    // required this.page
   });
-  final Articles headline;
+  final Articles articles;
+  // final String page;
   
   @override
   Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
     final percent = shrinkOffset / _maxExtendsHeader;
-    return Hero(
-      tag: headline.urlToImage ?? "no_image",
+    final GeneralSettingsProvider generalSettingsProvider = Provider.of<GeneralSettingsProvider>(context);
+    return  Hero(
+      tag: articles.title ?? "no?image",
       child: Stack(
         fit: StackFit.expand,
         children: [
@@ -67,12 +71,13 @@ class _Header extends SliverPersistentHeaderDelegate{
             color: Colors.grey.shade300,
             height: _maxExtendsHeader,
             width: double.infinity,
+          
             child: AnimatedOpacity(
               duration: const Duration(milliseconds: 200),
               opacity: percent == 0.0 ? 1 : ( 1 - percent * 1),
               child: Image(
                 image: NetworkImage(
-                  headline.urlToImage!,
+                  articles.urlToImage ?? "https://placehold.co/600x400/000000/FFFFFF/png",
                 ), 
                 fit: BoxFit.cover,
                 height: _maxExtendsHeader,
@@ -80,22 +85,14 @@ class _Header extends SliverPersistentHeaderDelegate{
             )
           ),
           Positioned(
-            top: 30,
-            left: 1,
-            child: AnimatedOpacity(
-              duration: const Duration(seconds: 2),
-              opacity: (percent >= 0.0 && percent < 0.3) ? 0.3 * percent : 1,
-              curve: Curves.bounceOut,
-              child: Material(
-                shadowColor: Colors.transparent,
-                color: Colors.transparent,
-                child: IconButton(
-                  splashColor: Colors.transparent,
-                  splashRadius: null,
-                  onPressed: () => percent == 1.0 ? Navigator.pushReplacementNamed(context, 'home') : null, 
-                  icon: const Icon(Icons.arrow_back, color: Colors.white, size: 20,)
-                ),
-              ),
+            top: 50,
+            left: 10,
+            child: GestureDetector(
+              onTap: () async {
+                 generalSettingsProvider.setCurrentPage = 0;
+                 await Navigator.pushReplacementNamed(context, "home");
+              },
+              child: const Icon(Icons.arrow_back, color: Colors.white, size: 20,)
             )
           )
         ],
