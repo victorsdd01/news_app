@@ -1,4 +1,3 @@
-import 'package:news_app/src/models/countries.dart';
 import 'package:news_app/src/ui/pages.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 Future<void> main() async {

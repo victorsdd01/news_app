@@ -1,3 +1,4 @@
+
 import 'package:news_app/src/ui/pages.dart';
 
 class HeadlineNews extends StatefulWidget {
@@ -15,11 +16,11 @@ class HeadlineNews extends StatefulWidget {
   State<HeadlineNews> createState() => _HeadlineNewsState();
 }
 
-class _HeadlineNewsState extends State<HeadlineNews> {
+class _HeadlineNewsState extends State<HeadlineNews> with AutomaticKeepAliveClientMixin {
   final double _expandedHeight = 50.0;
   @override
   Widget build(BuildContext context) {
-    // super.build(context);
+    super.build(context);
     final size = MediaQuery.of(context).size;
     return NestedScrollView(
       controller: Provider.of<GeneralSettingsProvider>(context).nestedController,
@@ -87,7 +88,7 @@ class _HeadlineNewsState extends State<HeadlineNews> {
                 width: double.infinity,
                 height: size.height * 0.35,
                 child: Hero(
-                  tag: headline.urlToImage ?? "no_image",
+                  tag: headline.title ?? "no_image",
                   child: GestureDetector(
                     onTap: () => Navigator.pushReplacementNamed(context, 'see_new', arguments: headline),
                     child: Stack(
@@ -143,6 +144,6 @@ class _HeadlineNewsState extends State<HeadlineNews> {
     );
   }
   
-  // @override
-  // bool get wantKeepAlive => true;
+  @override
+  bool get wantKeepAlive => true;
 }

@@ -63,9 +63,7 @@ class MySearchDelegate extends SearchDelegate<String>{
   Widget buildSuggestions(BuildContext context) {
     final NewsService newsService = Provider.of<NewsService>(context);
     debouncer.run(() async {
-       print("query:$query");
-       final list = newsService.filterByQuery(query, null);
-       print(list);
+      //  final list = newsService.filterByQuery(query, null);
     });
     return !newsService.isLoading
     ? ListView.separated(

@@ -85,7 +85,6 @@ class GeneralSettingsProvider extends ChangeNotifier{
     setCurrentCountryScrollPosition = currentposition;
     listenHeadlinesController();
     listenPageController();
-    // listeCountryController();
   }
 
   void loadDarkMode(){

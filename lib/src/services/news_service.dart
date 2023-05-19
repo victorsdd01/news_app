@@ -7,8 +7,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 enum BasePaths{
   headlines("top-headlines"),
   everything("everything"),
+  sources("sources"),
   baseUrl("https://newsapi.org/v2/"),
-  apiKey("45119af68cf94b10807dd88e2ae04430");
+  apiKey("e23877faa1694146aae5079d3ca7f399");
   final String path;
   const BasePaths(this.path);
 }
@@ -19,6 +20,7 @@ class NewsService extends ChangeNotifier{
   bool _isLoading = false;
   List<Articles> headlines = [];
   List<Articles> headlinesFilteredByQuery = [];
+  List<Sources> everythingNewsList = [];
   String country;
   String _selectedCountry = "";
 
@@ -36,6 +38,7 @@ class NewsService extends ChangeNotifier{
   NewsService({ required this.country, required this.sharedPreferences}){
     setSelectedCountry = country;
     getHeadlinesNews();
+    everythingNews();
   }
 
   Future<List<Articles>> getHeadlinesNews() async {
@@ -120,6 +123,27 @@ class NewsService extends ChangeNotifier{
       _isLoading = false;
       notifyListeners();
       return headlines;
+    } on DioError catch(e){
+      final ErrorResponse error = ErrorResponse.fromMap(e.response!.data);
+      if (kDebugMode) {
+        print("‼️${error.message}");
+      }
+      return [];
+    }
+  }
+
+  Future<List<Sources>> everythingNews() async {
+    try {
+      _isLoading = true;
+      final response = await dio.get("${BasePaths.baseUrl.path}${BasePaths.headlines.path}/${BasePaths.sources.path}",
+        queryParameters:{
+            "apiKey": BasePaths.apiKey.path,
+        });
+      final EverythingNews news = EverythingNews.fromMap(response.data);
+      everythingNewsList =  news.sources;
+      _isLoading = false;
+      notifyListeners();
+      return everythingNewsList;
     } on DioError catch(e){
       final ErrorResponse error = ErrorResponse.fromMap(e.response!.data);
       if (kDebugMode) {
