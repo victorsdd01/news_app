@@ -7,6 +7,7 @@ Future<void> main() async {
   final bool? darkMode = sharedPreferences.getBool("isDarkMode");  
   final String? selectedCountry = sharedPreferences.getString("selectedCountry");
   final double? currentCountryScrollPosition = sharedPreferences.getDouble("currentCountryScrollPosition");
+  final List<String>? recentSearches = sharedPreferences.getStringList("recentSearches");
   runApp(
     MultiProvider(
       providers: [
@@ -14,6 +15,7 @@ Future<void> main() async {
             sharedPreferences: sharedPreferences, 
             preferencesDarkMode: darkMode ?? false,
             currentposition: currentCountryScrollPosition ?? 0.0,
+            searches: recentSearches ?? [],
           )
         ),
         ChangeNotifierProvider(create: (_) => NewsService(

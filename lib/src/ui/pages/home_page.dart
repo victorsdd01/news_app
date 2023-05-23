@@ -1,6 +1,5 @@
 import 'package:news_app/src/ui/pages.dart';
 
-
 enum Titles {
 
   headlines("Headlines"),
@@ -48,9 +47,9 @@ class HomePage extends StatelessWidget {
             onPressed: () {
               generaSettingsProvider.setSearch = !generaSettingsProvider.search;
               if (generaSettingsProvider.search) {
-                showSearch(
+                  showSearch(
                   context: context, 
-                  delegate: MySearchDelegate()
+                  delegate: MySearchDelegate(newsService: newServices,generalSettingsProvider: generaSettingsProvider)
                 );
               }
             }, 
@@ -60,6 +59,7 @@ class HomePage extends StatelessWidget {
         ],
       ),
       body: PageView(
+        allowImplicitScrolling: true,
         controller: generaSettingsProvider.pageController,
         children: <Widget>[
           HeadlinesPage(
@@ -81,6 +81,7 @@ class HomePage extends StatelessWidget {
         currentIndex: generaSettingsProvider.getCurrentPage,
         onTap: (value) {
           generaSettingsProvider.setCurrentPage = value;
+          print(value);
           switch (generaSettingsProvider.getCurrentPage) {
             case 0:
               generaSettingsProvider.pageController.animateToPage(value, duration: const Duration(milliseconds: 500), curve: Curves.easeInToLinear);

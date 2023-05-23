@@ -1,4 +1,5 @@
 
+import 'package:flutter/foundation.dart';
 import 'package:news_app/src/ui/pages.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -12,14 +13,20 @@ class GeneralSettingsProvider extends ChangeNotifier{
   double _headLinesControllerOffset = 0.0;
   double _opacity = 0.0;
   String _selectedCategory = "";
-  SharedPreferences sharedPreferences;
-  bool preferencesDarkMode;
-  double currentposition; //currentPosition
   double _currentCountryScrollPosition = 0.0; //currentScrollPosition from seleceted country
+
+  //controllers
   final ScrollController _headlinesScrollController = ScrollController();
   final PageController _pageController = PageController(initialPage: 0);
   final ScrollController _nestedController = ScrollController();
   late final ScrollController _countryController = ScrollController(initialScrollOffset: currentCountryScrollPosition );
+
+
+  // as parameter
+  SharedPreferences sharedPreferences;
+  bool preferencesDarkMode;
+  double currentposition; //currentPosition
+  List<String> searches;
 
   // getters
   int get getCurrentPage => _currentPage;
@@ -31,11 +38,13 @@ class GeneralSettingsProvider extends ChangeNotifier{
   String get selectedCategory => _selectedCategory;
   double get currentCountryScrollPosition => _currentCountryScrollPosition;
   
+  
   ThemeData get themeMode => _isDarkMode ? AppTheme.darkTheme : AppTheme.lightTheme;
   ScrollController get headlineScrollController => _headlinesScrollController;
   PageController get pageController => _pageController;
   ScrollController get nestedController => _nestedController;
   ScrollController get countryController => _countryController;
+  
 
   //setters
 
@@ -79,6 +88,7 @@ class GeneralSettingsProvider extends ChangeNotifier{
     required this.sharedPreferences, 
     required this.preferencesDarkMode,
     required this.currentposition,
+    required this.searches,
   }){
     
     setDarkTheme = preferencesDarkMode;
@@ -102,7 +112,7 @@ class GeneralSettingsProvider extends ChangeNotifier{
   }
 
   void listenHeadlinesController(){
-    _headlinesScrollController.addListener(() {
+    headlineScrollController.addListener(() {
       _headLinesControllerOffset =  _headlinesScrollController.offset;
       switch (headLinesControllerOffset) {
         case > 0.0:
@@ -117,7 +127,7 @@ class GeneralSettingsProvider extends ChangeNotifier{
   }
 
   void listenPageController(){
-    _pageController.addListener(() {
+    pageController.addListener(() {
       final currentControllerPage = _pageController.page!.ceil();
       _currentPage = currentControllerPage;
       notifyListeners();
@@ -125,7 +135,43 @@ class GeneralSettingsProvider extends ChangeNotifier{
   }
 
   void listeCountryController() {
-      _countryController.addListener(() {});
+      countryController.addListener(() {});
+  }
+
+
+  void addRecentSearch(String query) async {
+    try {
+      final exist = searches.where((element) => element == query);
+      if(query.isNotEmpty && exist.isEmpty){  
+        searches.add(query);
+        await sharedPreferences.setStringList("recentSearches",searches);
+      }
+    } on Exception catch (e) {
+      if (kDebugMode) {
+        print("Error $e");
+      }
+    }
+  }
+
+  List<String> loadRecentSearches() {
+    try {
+      return searches;
+    } on Exception catch (e) {
+      if (kDebugMode) {
+        print("Error trying toload recent searches list $e");
+      }
+      return [];
+    }
+  }
+  void deleteRecentSearch(String name){
+    try{
+      searches.remove(name);
+      sharedPreferences.setStringList("recentSearches", searches);
+    } on Exception catch(e){
+      if (kDebugMode) {
+        print("Error trying to delete recentedSearch $e");
+      }
+    }
   }
 
   void close(){
