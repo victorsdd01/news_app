@@ -59,7 +59,7 @@ class HomePage extends StatelessWidget {
         ],
       ),
       body: PageView(
-        allowImplicitScrolling: true,
+        physics: const BouncingScrollPhysics(),
         controller: generaSettingsProvider.pageController,
         children: <Widget>[
           HeadlinesPage(
@@ -81,7 +81,6 @@ class HomePage extends StatelessWidget {
         currentIndex: generaSettingsProvider.getCurrentPage,
         onTap: (value) {
           generaSettingsProvider.setCurrentPage = value;
-          print(value);
           switch (generaSettingsProvider.getCurrentPage) {
             case 0:
               generaSettingsProvider.pageController.animateToPage(value, duration: const Duration(milliseconds: 500), curve: Curves.easeInToLinear);
