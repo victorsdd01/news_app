@@ -19,7 +19,6 @@ class NewsService extends ChangeNotifier{
   SharedPreferences sharedPreferences;
   bool _isLoading = false;
   List<Articles> headlines = [];
-  List<Articles> headlinesFilteredByQuery = [];
   List<Sources> everythingNewsList = [];
   String country;
   String _selectedCountry = "";
@@ -30,10 +29,14 @@ class NewsService extends ChangeNotifier{
 
   //setters
     set setSelectedCountry(String value) {
-    _selectedCountry = value;
-    sharedPreferences.setString("selectedCountry", value);
-    notifyListeners();
-  }
+      _selectedCountry = value;
+      sharedPreferences.setString("selectedCountry", value);
+      notifyListeners();
+    }
+    set setIsLoading(bool value){
+      _isLoading = value;
+      notifyListeners();
+    }
 
   NewsService({ required this.country, required this.sharedPreferences}){
     setSelectedCountry = country;
@@ -86,20 +89,20 @@ class NewsService extends ChangeNotifier{
     }
   }
 
-  Future<List<Articles>> filterByQuery(String query, String? category) async {
+  Future<List<Articles>> filterByQuery(String query) async {
     try {
-      _isLoading = true;
-      final response =  await dio.get("${BasePaths.baseUrl.path}${BasePaths.headlines.path}", queryParameters: {
-        "country": selectedCountry,
-        "apiKey": BasePaths.apiKey.path,
-        "category": category ?? "",
-        "q": query,
-      });
-      final News news = News.fromMap(response.data);
-      headlinesFilteredByQuery.addAll(news.articles);
-      _isLoading = false;
-      notifyListeners();
-      return headlines;
+      if(query.isNotEmpty){
+        _isLoading = true;
+        final response =  await dio.get("${BasePaths.baseUrl.path}${BasePaths.everything.path}", queryParameters: {
+          "apiKey": BasePaths.apiKey.path,
+          "q": query,
+        });
+        final News news = News.fromMap(response.data);
+        _isLoading = false;
+        notifyListeners();
+        return news.articles;
+      }
+      return [];
     } on DioError catch (e) {
       final ErrorResponse error = ErrorResponse.fromMap(e.response!.data);
       if (kDebugMode) {
