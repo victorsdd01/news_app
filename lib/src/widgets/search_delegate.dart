@@ -47,7 +47,6 @@ class MySearchDelegate extends SearchDelegate<String>{
               final Articles headline = snapshot.data![index];
               return ListTile(
                 title: Text(headline.title!),
-                onTap: () => Navigator.pushReplacementNamed(context, "see_new", arguments: headline),
               );
             },
           );
